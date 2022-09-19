@@ -73,36 +73,66 @@ nav .buttons{
     align-items: center;
 }
 
-.cell.x::before, .cell.x::after {
+.cell.x,
+.cell.o {
+    cursor: not-allowed;
+}
+
+.cell.x::before, 
+.cell.x::after {
+    background-color: black;
+} 
+
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after {
+    background-color: lightgrey;
+}
+
+.cell.x::before, 
+.cell.x::after, 
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after {
     content: '';
     position: absolute;
     width: calc(var(--symbol-size) * 0.15);
     height: var(--symbol-size);
-    background-color: black;
 }
 
-.cell.x::before {
+.cell.x::before,
+.board.x .cell:not(.x):not(.o):hover::before {
     transform: rotate(45deg);
 }
 
-.cell.x::after {
+.cell.x::after,
+.board.x .cell:not(.x):not(.o):hover::after {
     transform: rotate(-45deg);
 }
 
-.cell.o::before, .cell.o::after {
+.cell.o::before {
+    background-color: black;
+}
+
+.board.o .cell:not(.x):not(.o):hover:before {
+    background-color: lightgrey;
+}
+
+.cell.o::before, 
+.cell.o::after,
+.board.o .cell:not(.x):not(.o):hover::before,
+.board.o .cell:not(.x):not(.o):hover::after {
     content: '';
     position: absolute;
     border-radius: 50%;
-    background-color: black;
 }
 
-.cell.o:before {
+.cell.o:before,
+.board.o .cell:not(.x):not(.o):hover::before {
     width: calc(var(--symbol-size) * 0.9);
     height: calc(var(--symbol-size) * 0.9);
-    background-color: black;
 }
 
-.cell.o::after {
+.cell.o::after, 
+.board.o .cell:not(.x):not(.o):hover::after {
     width: calc(var(--symbol-size) * 0.6);
     height: calc(var(--symbol-size) * 0.6);
     background-color: white;
