@@ -1,3 +1,8 @@
+:root {
+    --cell-size: 10em;
+    --symbol-size: cal(var(--cell-size) * 0.9);
+}
+
 body {
     box-sizing: border-box;
     font-size: 16px;
@@ -42,7 +47,7 @@ nav .buttons{
 
 .main-content .status {
     text-align: center;
-    padding: 1.2em;
+    padding: 1.5em;
 }
 
 .main-content .board {
@@ -53,13 +58,48 @@ nav .buttons{
     'cell1 cell2 cell3'
     'cell4 cell5 cell6'
     'cell7 cell8 cell9';
-    grid-gap: 1em;
+    justify-items: center;
+    align-items: center;
+    padding: 1.5em;
 }
 
 .cell {
-    width: 10em;
-    height: 10em;
-    background-color: black;
+    width: var(--cell-size);
+    height: var(--cell-size);
+    background-color: white;
+    border: 2px solid black;
+}
+
+.cell i {
+    min-width: 90%;
+    min-height: 90%;
+}
+
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+    border-top: none;
+}
+
+.cell:nth-child(3n + 3) {
+    border-right: none;
+}
+
+.cell:nth-child(7),
+.cell:nth-child(8),
+.cell:nth-child(9) {
+    border-bottom: none;
+}
+
+.cell:nth-child(3n + 1) {
+    border-left: none;
+}
+
+.scoreBoard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    padding: 1.5em;
 }
 
 
