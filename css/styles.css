@@ -45,7 +45,7 @@ nav .buttons{
     flex-direction: column;
 }
 
-.main-content .status {
+.main-content .message {
     text-align: center;
     padding: 1.5em;
 }
