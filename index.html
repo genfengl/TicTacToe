@@ -4,12 +4,49 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://kit.fontawesome.com/2b8c06cb4b.js" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
 <body>
-    <h1>Let's play</h1>
+    <div class="container">
+        <nav>
+            <h1>TIC TAC TOE</h1>
+            <div class="buttons">
+                <i class="fa-solid fa-user fa-2xl"></i>
+                <i class="fa-solid fa-music fa-2xl"></i>
+                <i class="fa-solid fa-gear fa-2xl"></i>
+            </div>
+        </nav>
+        <main class="main-content">
+            <div class="status">
+                <p>Player1's turn!</p>
+            </div>
+            <div class="board">
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+                <div class="cell"></div>
+            </div>
+            <div class="scoreBoard">
+                <div class="player1">
+                    <p>Player 1: score</p>
+                </div>
+                <div class="tie">
+                    <p>Tie: score</p>
+                </div>
+                <div class="player2">
+                    <p>Player 2: score</p>
+                </div>
+            </div>
+        </main>
+    </div>
 
-
-    <script src="script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
