@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <nav>
-            <h1>TIC TAC TOE</h1>
+            <h1>TIC-TAC-TOE</h1>
             <div class="buttons">
                 <i class="fa-solid fa-user fa-2xl"></i>
                 <i class="fa-solid fa-music fa-2xl"></i>
@@ -20,7 +20,9 @@
         </nav>
         <main class="main-content">
             <div class="message">
-                <p></p>
+                <h2></h2>
+                <div class="buttons"><i class="fa-solid fa-rotate-right fa-2xl"></i></div>
+                
             </div>
             <div class="board" id="board">
                 <div class="cell"></div>
@@ -34,14 +36,17 @@
                 <div class="cell"></div>
             </div>
             <div class="scoreBoard">
-                <div class="player1">
-                    <p>Player 1: score</p>
+                <div class="score player1">
+                    <h2></h2>
+                    <h2 id="p1Score"></h2>
                 </div>
-                <div class="tie">
-                    <p>Tie: score</p>
+                <div class="score tie">
+                    <h2>Tie</h2>
+                    <h2 id="tieScore"></h2>
                 </div>
-                <div class="player2">
-                    <p>Player 2: score</p>
+                <div class="score player2">
+                    <h2></h2>
+                    <h2 id="p2Score"></h2>
                 </div>
             </div>
         </main>

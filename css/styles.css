@@ -39,6 +39,10 @@ nav .buttons{
     padding: 0.6em;
 }
 
+nav .fa-user:hover {
+    display:none;
+}
+
 .main-content {
     grid-row: 2 / 3;
     display: flex;
@@ -48,6 +52,14 @@ nav .buttons{
 .main-content .message {
     text-align: center;
     padding: 1.5em;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+}
+
+.message .buttons {
+    padding-left: 1.5em;
 }
 
 .main-content .board {
@@ -161,10 +173,19 @@ nav .buttons{
 .scoreBoard {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    justify-items: center;
+    justify-content: center;
+    align-items: center;
     padding: 1.5em;
+    overflow: hidden;
 }
 
+.score {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
 
 
 
