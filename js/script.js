@@ -13,7 +13,8 @@ let currentClass = 'x'
 const xClass = 'x'
 const oClass = 'o'
 let gameFinish = false
-let winArray = []
+let currentArray = []
+let winArray = null
 localStorage.clear()
 
 if (localStorage.getItem('player1') === null) {
@@ -38,7 +39,8 @@ if (localStorage.getItem('tieScore') === null) {
 let player1Score = localStorage.getItem('player1Score')
 let player2Score = localStorage.getItem('player2Score')
 let drawScore = localStorage.getItem('tieScore')
-
+const arr = [1, 2, 3, 4, 5]
+console.log(arr)
 const winCon = [
     [0, 1, 2],
     [3, 4, 5],
@@ -110,7 +112,6 @@ const checkWin = (currentClass) => {
 }
 
 const won = () => {
-    console.log(`Player 1 score: ${player1Score}`)
     message.textContent = `${currentClass === 'x' ? player1 : player2} wins!`
     currentClass === 'x' ? player1Score++ : player2Score++
     setTimeout(() => {
@@ -120,14 +121,7 @@ const won = () => {
             audioWin.currentTime = 0
         }, 2000)
     }, 500)
-    for (i=0; i<cellElements.length; i++) {
-        if (cellElements[i].classList.contains(currentClass)) {
-            winArray.push(i)
-        }
-    }
-    winArray.forEach(index => {
-        cellElements[index].style.animation = 'blink 0.8s linear 3'
-    })
+    addAnimation()
     keepScore()
     resetBtn.style.display = 'flex'
 }
@@ -182,6 +176,7 @@ const clearBoard = () => {
         cellElements.forEach(cell => {
             cell.className = 'cell'
             cell.style.animation = 'none'
+            winArray = []
         })
         audioWin.pause()
         audioWin.currentTime = 0
@@ -250,6 +245,22 @@ const toggleSound = () => {
             audioDraw.muted = false
             audioWin.muted = false
         }
+    })
+}
+
+const addAnimation = () => {
+    for (i=0; i<cellElements.length; i++) {
+        if (cellElements[i].classList.contains(currentClass)) {
+            currentArray.push(i)
+        }
+    }
+    winCon.forEach(combination => {
+        if (combination.every(index => currentArray.includes(index))) {
+            winArray = combination
+        }
+    })
+    winArray.forEach(index => {
+        cellElements[index].style.animation = 'blink 0.8s linear 3'
     })
 }
 
