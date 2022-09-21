@@ -39,8 +39,7 @@ if (localStorage.getItem('tieScore') === null) {
 let player1Score = localStorage.getItem('player1Score')
 let player2Score = localStorage.getItem('player2Score')
 let drawScore = localStorage.getItem('tieScore')
-const arr = [1, 2, 3, 4, 5]
-console.log(arr)
+
 const winCon = [
     [0, 1, 2],
     [3, 4, 5],
