@@ -7,7 +7,7 @@ body {
     box-sizing: border-box;
     font-size: 16px;
     height: 1.2em;
-    font-family: Helvetica, Arial, sans-serif
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 .container {
@@ -35,6 +35,7 @@ nav .title {
 }
 
 nav h1 {
+    font-size: 2em;
     padding: 1em;
 }
 nav .buttons{
@@ -44,7 +45,7 @@ nav .buttons{
 }
 
 nav .buttons div {
-    width: 5em;
+    width: 4em;
     display: flex;
     justify-content: center;
 }
@@ -72,15 +73,12 @@ nav .buttons:hover {
 
 .main-content .message {
     text-align: center;
-    padding: 1.5em;
+    padding: 32px;
     display: flex;
     justify-content: center;
     flex-direction: row;
     align-items: center;
-}
-
-.message .buttons {
-    padding-left: 1.5em;
+    font-size: 1.5em;
 }
 
 .main-content .board {
@@ -93,7 +91,7 @@ nav .buttons:hover {
     'cell7 cell8 cell9';
     justify-items: center;
     align-items: center;
-    padding: 1.5em;
+    padding: 2em;
 }
 
 .cell {
@@ -196,7 +194,7 @@ nav .buttons:hover {
     grid-template-columns: repeat(3, 1fr);
     justify-content: center;
     align-items: center;
-    padding: 1.5em;
+    padding: 2.4em;
     overflow: hidden;
 }
 

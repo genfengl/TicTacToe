@@ -176,6 +176,7 @@ const clearBoard = () => {
             cell.className = 'cell'
             cell.style.animation = 'none'
             winArray = []
+            currentArray = []
         })
         audioWin.pause()
         audioWin.currentTime = 0
@@ -253,11 +254,13 @@ const addAnimation = () => {
             currentArray.push(i)
         }
     }
+    console.log(currentArray)
     winCon.forEach(combination => {
         if (combination.every(index => currentArray.includes(index))) {
             winArray = combination
         }
     })
+    console.log(winArray)
     winArray.forEach(index => {
         cellElements[index].style.animation = 'blink 0.8s linear 3'
     })
