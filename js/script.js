@@ -128,8 +128,6 @@ const won = () => {
     winArray.forEach(index => {
         cellElements[index].style.animation = 'blink 0.8s linear 3'
     })
-    console.log(cellElements)
-    
     keepScore()
     resetBtn.style.display = 'flex'
 }
@@ -183,6 +181,7 @@ const clearBoard = () => {
     resetBtn.addEventListener('click', () => {
         cellElements.forEach(cell => {
             cell.className = 'cell'
+            cell.style.animation = 'none'
         })
         audioWin.pause()
         audioWin.currentTime = 0

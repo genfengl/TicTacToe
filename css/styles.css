@@ -23,6 +23,8 @@ nav {
     display: flex; 
     justify-content: space-between;
     align-items: center;
+    padding-left: 1em;
+    padding-right: 1em;
 }
 nav h1 {
     padding: 1em;
@@ -214,4 +216,8 @@ nav .buttons:hover {
     50% {
         opacity: 0
     }
+}
+
+.winningCell {
+    animation: 'blink 0.8s linear 3';
 }
