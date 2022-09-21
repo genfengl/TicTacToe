@@ -3,21 +3,37 @@ const navBtns = document.querySelector('nav').children[1]
 const messageDiv = document.querySelector('.message')
 const message = messageDiv.children[0]
 const cellElements = document.querySelectorAll('.cell')
-const resetBtn = messageDiv.children[1]
-
-
-
+const resetBtn = document.querySelector('#overlay')
 
 let currentClass = 'x'
 const xClass = 'x'
 const oClass = 'o'
-let player1 = 'Player 1'
-let player2 = 'Player 2'
-let player1Score = 0
-let player2Score = 0
-let drawScore = 0
+let gameFinish = false
+localStorage.clear()
 
-let gameFinished = false
+if (localStorage.getItem('player1') === null) {
+    localStorage.setItem('player1', 'Player 1')
+}
+if (localStorage.getItem('player2') === null) {
+    localStorage.setItem('player2', 'Player 2')
+}
+let player1 = localStorage.getItem('player1')
+let player2 = localStorage.getItem('player2')
+
+if (localStorage.getItem('player1Score') === null) {
+    localStorage.setItem('player1Score', 0)
+}
+if (localStorage.getItem('player2Score') === null) {
+    localStorage.setItem('player2Score', 0)
+}
+if (localStorage.getItem('tieScore') === null) {
+    localStorage.setItem('tieScore', 0)
+}
+
+let player1Score = localStorage.getItem('player1Score')
+let player2Score = localStorage.getItem('player2Score')
+let drawScore = localStorage.getItem('tieScore')
+
 const winCon = [
     [0, 1, 2],
     [3, 4, 5],
@@ -30,13 +46,14 @@ const winCon = [
 ]
 
 const setupGame = () => {
-    console.log(player1Score)
     let whoGoesFirst = Math.random()
-    whoGoesFirst < 0.5 ? currentClass = 'x' : currentClass = 'o'
+    if (gameFinish) {
+        whoGoesFirst < 0.5 ? currentClass = 'x' : currentClass = 'o'
+    }
+    gameFinish = false
     currentClass === 'x' ? board.className = 'board x' : board.className = 'board o'
     resetBtn.style.display = 'none'
 
-    console.log(localStorage.getItem('player1Score'))
     displayMessage()
     keepScore()
     playGame()
@@ -54,22 +71,22 @@ const clicked = () => {
                 cell.classList.add(currentClass) 
                 if (checkWin(currentClass)) {
                     won()
-                    return gameFinished = true
+                    return gameFinish === true
                 }
                 if (checkDraw()) {
                     draw()
-                    return gameFinished = true
+                    return gameFinish === true
                 }
                 switchSide()
             } else {
                 cell.classList.add(currentClass)
                 if (checkWin(currentClass)) {
                     won()
-                    return gameFinished = true
+                    return gameFinish === true
                 }
                 if (checkDraw()) {
                     draw()
-                    return gameFinished = true
+                    return gameFinish === true
                 }
                 switchSide()
             }
@@ -120,6 +137,7 @@ const keepScore = () => {
     p1Score.textContent = player1Score
     tieScore.textContent = drawScore
     p2Score.textContent = player2Score
+
 }
 
 const switchSide = () => {
@@ -165,15 +183,18 @@ const clearLocal = () => {
     const clearLocalBtn = navBtns.children[0]
     console.log(clearLocalBtn)
     clearLocalBtn.addEventListener('click', () => {
-        localStorage.clear()
+        player1 = 'Player 1'
+        player2 = 'Player 2'
+        player1Score = 0
+        player2Score = 0
+        drawScore = 0
         cellElements.forEach(cell => {
             cell.className = 'cell'
         })
+        gameFinish = true
         setupGame()
     })
 }
-
-
 
 const playGame = () => {
     displayMessage()
