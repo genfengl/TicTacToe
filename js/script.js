@@ -1,16 +1,18 @@
 const board = document.querySelector('#board')
-
+const navBtns = document.querySelector('nav').children[1]
 const messageDiv = document.querySelector('.message')
 const message = messageDiv.children[0]
 const cellElements = document.querySelectorAll('.cell')
 const resetBtn = messageDiv.children[1]
-console.log(resetBtn)
 
-let player1 = 'Player 1'
-let player2 = 'Player 2'
+
+
+
 let currentClass = 'x'
 const xClass = 'x'
 const oClass = 'o'
+let player1 = 'Player 1'
+let player2 = 'Player 2'
 let player1Score = 0
 let player2Score = 0
 let drawScore = 0
@@ -28,10 +30,13 @@ const winCon = [
 ]
 
 const setupGame = () => {
+    console.log(player1Score)
     let whoGoesFirst = Math.random()
     whoGoesFirst < 0.5 ? currentClass = 'x' : currentClass = 'o'
     currentClass === 'x' ? board.className = 'board x' : board.className = 'board o'
     resetBtn.style.display = 'none'
+
+    console.log(localStorage.getItem('player1Score'))
     displayMessage()
     keepScore()
     playGame()
@@ -81,11 +86,11 @@ const checkWin = (currentClass) => {
 }
 
 const won = () => {
+    console.log(`Player 1 score: ${player1Score}`)
     message.textContent = `${currentClass === 'x' ? player1 : player2} wins!`
     currentClass === 'x' ? player1Score++ : player2Score++
     keepScore()
     resetBtn.style.display = 'flex'
-
 }
 
 const checkDraw = () => {
@@ -107,6 +112,7 @@ const keepScore = () => {
 
     p1tag.textContent = player1
     p2tag.textContent = player2
+
     const p1Score = document.querySelector('#p1Score')
     const tieScore = document.querySelector('#tieScore')
     const p2Score = document.querySelector('#p2Score')
@@ -114,13 +120,12 @@ const keepScore = () => {
     p1Score.textContent = player1Score
     tieScore.textContent = drawScore
     p2Score.textContent = player2Score
-
 }
 
 const switchSide = () => {
     if (currentClass === 'x') {
         currentClass = 'o'
-        board.className = 'board o' 
+        board.className = 'board o'
         displayMessage()
     } else if (currentClass === 'o') {
         currentClass = 'x'
@@ -130,13 +135,45 @@ const switchSide = () => {
 }
 
 const clearBoard = () => {
-        resetBtn.addEventListener('click', () => {
-            cellElements.forEach(cell => {
-                cell.className = 'cell'
-            })
-            setupGame()
+    resetBtn.addEventListener('click', () => {
+        cellElements.forEach(cell => {
+            cell.className = 'cell'
         })
-    }
+    setupGame()
+    })
+}
+
+const changeName = () => {
+    const player1Tag = document.querySelector('.player1')
+    const player2Tag = document.querySelector('.player2')
+
+    player1Tag.addEventListener('click', (ev) => {
+        let nameInput = prompt("Player 1 name")
+        player1 = nameInput
+        localStorage.setItem('player1', `${player1}`)
+        setupGame()
+    })
+    player2Tag.addEventListener('click', (ev) => {
+        let nameInput = prompt("Player 2 name")
+        player2 = nameInput
+        localStorage.setItem('player2', `${player2}`)
+        setupGame()
+    })
+}
+
+const clearLocal = () => {
+    const clearLocalBtn = navBtns.children[0]
+    console.log(clearLocalBtn)
+    clearLocalBtn.addEventListener('click', () => {
+        localStorage.clear()
+        cellElements.forEach(cell => {
+            cell.className = 'cell'
+        })
+        setupGame()
+    })
+}
+
+
 
 const playGame = () => {
     displayMessage()
@@ -144,21 +181,17 @@ const playGame = () => {
     clearBoard()
 } 
 
+
 setupGame()
 
-const changeName = () => {
-    const player1Tag = document.querySelector('.player1')
-    const player2Tag = document.querySelector('.player2')
-    player1Tag.addEventListener('click', (ev) => {
-        let nameInput = prompt("Player 1 name")
-        player1 = nameInput
-        setupGame()
-    })
-    player2Tag.addEventListener('click', (ev) => {
-        let nameInput = prompt("Player 2 name")
-        player2 = nameInput
-        setupGame()
-    })
-}
-
 changeName()
+
+clearLocal()
+
+
+// const userIconChange = () => {
+//     const userIcon = document.querySelector('.userChange')
+//     userIcon.addEventListener('mouseover', () => {
+//         userIcon.children[0].style
+//     })
+// }

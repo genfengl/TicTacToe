@@ -39,9 +39,9 @@ nav .buttons{
     padding: 0.6em;
 }
 
-nav .fa-user:hover {
+/* nav .fa-user:hover {
     display:none;
-}
+} */
 
 .main-content {
     grid-row: 2 / 3;
