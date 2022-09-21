@@ -4,6 +4,10 @@ const messageDiv = document.querySelector('.message')
 const message = messageDiv.children[0]
 const cellElements = document.querySelectorAll('.cell')
 const resetBtn = document.querySelector('#overlay')
+const audioX = new Audio('./js/Tictactoe_X.mp3')
+const audioO = new Audio('./js/Tictactoe_O.mp3')
+const audioWin = new Audio('./js/Tictactoe_Win.mp3')
+const audioDraw = new Audio('./js/Tictactoe_Draw.mp3')
 
 let currentClass = 'x'
 const xClass = 'x'
@@ -68,6 +72,7 @@ const clicked = () => {
         cell = ev.target
         if (cell.className === 'cell') {
             if (currentClass === 'x') {
+                audioX.play()
                 cell.classList.add(currentClass) 
                 if (checkWin(currentClass)) {
                     won()
@@ -79,6 +84,7 @@ const clicked = () => {
                 }
                 switchSide()
             } else {
+                audioO.play()
                 cell.classList.add(currentClass)
                 if (checkWin(currentClass)) {
                     won()
@@ -106,6 +112,13 @@ const won = () => {
     console.log(`Player 1 score: ${player1Score}`)
     message.textContent = `${currentClass === 'x' ? player1 : player2} wins!`
     currentClass === 'x' ? player1Score++ : player2Score++
+    setTimeout(() => {
+        audioWin.play()
+        setTimeout(() => {
+            audioWin.pause()
+            audioWin.currentTime = 0
+        }, 2000)
+    }, 500)
     keepScore()
     resetBtn.style.display = 'flex'
 }
@@ -119,6 +132,9 @@ const checkDraw = () => {
 const draw = () => {
     message.textContent = `It's a draw!`
     drawScore++
+    setTimeout(() => {
+        audioDraw.play()
+    }, 300)
     keepScore()
     resetBtn.style.display = 'flex'
 }
@@ -157,6 +173,10 @@ const clearBoard = () => {
         cellElements.forEach(cell => {
             cell.className = 'cell'
         })
+        audioWin.pause()
+        audioWin.currentTime = 0
+        audioDraw.pause()
+        audioDraw.currentTime = 0
     setupGame()
     })
 }
