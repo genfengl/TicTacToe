@@ -4,15 +4,16 @@ const messageDiv = document.querySelector('.message')
 const message = messageDiv.children[0]
 const cellElements = document.querySelectorAll('.cell')
 const resetBtn = document.querySelector('#overlay')
-const audioX = new Audio('./js/Tictactoe_X.mp3')
-const audioO = new Audio('./js/Tictactoe_O.mp3')
-const audioWin = new Audio('./js/Tictactoe_Win.mp3')
-const audioDraw = new Audio('./js/Tictactoe_Draw.mp3')
+const audioX = new Audio('./sounds/Tictactoe_X.mp3')
+const audioO = new Audio('./sounds/Tictactoe_O.mp3')
+const audioWin = new Audio('./sounds/Tictactoe_Win.mp3')
+const audioDraw = new Audio('./sounds/Tictactoe_Draw.mp3')
 
 let currentClass = 'x'
 const xClass = 'x'
 const oClass = 'o'
 let gameFinish = false
+let winArray = []
 localStorage.clear()
 
 if (localStorage.getItem('player1') === null) {
@@ -119,6 +120,16 @@ const won = () => {
             audioWin.currentTime = 0
         }, 2000)
     }, 500)
+    for (i=0; i<cellElements.length; i++) {
+        if (cellElements[i].classList.contains(currentClass)) {
+            winArray.push(i)
+        }
+    }
+    winArray.forEach(index => {
+        cellElements[index].style.animation = 'blink 0.8s linear 3'
+    })
+    console.log(cellElements)
+    
     keepScore()
     resetBtn.style.display = 'flex'
 }
@@ -216,18 +227,46 @@ const clearLocal = () => {
     })
 }
 
+const toggleSound = () => {
+    const soundBtn = navBtns.children[2]
+    let soundMuted = false
+    const muteIcon = soundBtn.children[1]
+    const soundIcon = soundBtn.children[0]
+    muteIcon.style.display = 'none'
+    soundBtn.addEventListener('click', () => {
+        if (soundMuted === false) {
+            soundIcon.style.display = 'none'
+            muteIcon.style.display = 'flex'
+            soundMuted = true
+            audioX.muted = true
+            audioO.muted = true
+            audioWin.muted = true
+            audioDraw.muted = true
+        } else if (soundMuted === true) {
+            muteIcon.style.display = 'none'
+            soundIcon.style.display = 'flex'
+            soundMuted = false
+            audioX.muted = false
+            audioO.muted = false
+            audioDraw.muted = false
+            audioWin.muted = false
+        }
+    })
+}
+
 const playGame = () => {
     displayMessage()
     clicked()
     clearBoard()
 } 
 
-
 setupGame()
 
 changeName()
 
 clearLocal()
+
+toggleSound()
 
 
 // const userIconChange = () => {

@@ -33,6 +33,12 @@ nav .buttons{
     padding: 1em;
 }
 
+nav .buttons div {
+    width: 5em;
+    display: flex;
+    justify-content: center;
+}
+
 nav .buttons:hover {
     cursor: pointer;
 }
@@ -43,9 +49,9 @@ nav .buttons:hover {
     padding: 0.6em;
 }
 
-/* nav .fa-user:hover {
-    display:none;
-} */
+.buttons .soundToggle .fa-volume-xmark {
+    display: none;
+}
 
 .main-content {
     grid-row: 2 / 3;
@@ -204,4 +210,8 @@ nav .buttons:hover {
     cursor: pointer;
 }
 
-
+@keyframes blink {
+    50% {
+        opacity: 0
+    }
+}
