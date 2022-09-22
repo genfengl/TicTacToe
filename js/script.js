@@ -8,6 +8,10 @@ const audioX = new Audio('./sounds/Tictactoe_X.mp3')
 const audioO = new Audio('./sounds/Tictactoe_O.mp3')
 const audioWin = new Audio('./sounds/Tictactoe_Win.mp3')
 const audioDraw = new Audio('./sounds/Tictactoe_Draw.mp3')
+const themeChoice = document.querySelector('.themeChoice')
+const nav = document.querySelector('nav')
+const mainContent = document.querySelector('.main-content')
+const scoreBoard = document.querySelector('.scoreBoard')
 
 let currentClass = 'x'
 const xClass = 'x'
@@ -15,7 +19,8 @@ const oClass = 'o'
 let gameFinish = false
 let currentArray = []
 let winArray = null
-localStorage.clear()
+let currentTheme = 'red'
+let whoGoesFirst = null
 
 if (localStorage.getItem('player1') === null) {
     localStorage.setItem('player1', 'Player 1')
@@ -52,8 +57,9 @@ const winCon = [
 ]
 
 const setupGame = () => {
-    let whoGoesFirst = Math.random()
-    if (gameFinish) {
+    whoGoesFirst = Math.random()
+    console.log(whoGoesFirst)
+    if (gameFinish === true) {
         whoGoesFirst < 0.5 ? currentClass = 'x' : currentClass = 'o'
     }
     gameFinish = false
@@ -66,10 +72,32 @@ const setupGame = () => {
 }
 
 const displayMessage = () => {
+    player1 = localStorage.getItem('player1')
+    player2 = localStorage.getItem('player2')
     currentClass === 'x' ? message.textContent = `${player1}'s turn!` : message.textContent = `${player2}'s turn!`
 }
 
-const clicked = () => {
+const keepScore = () => {
+    player1Score = localStorage.getItem('player1Score')
+    player2Score = localStorage.getItem('player2Score')
+    drawScore = localStorage.getItem('tieScore')
+
+    const p1tag = document.querySelector('.player1').children[1]
+    const p2tag = document.querySelector('.player2').children[1]
+
+    p1tag.textContent = player1
+    p2tag.textContent = player2
+
+    const p1Score = document.querySelector('#p1Score')
+    const tieScore = document.querySelector('#tieScore')
+    const p2Score = document.querySelector('#p2Score')
+
+    p1Score.textContent = player1Score
+    tieScore.textContent = drawScore
+    p2Score.textContent = player2Score
+}
+
+const playGame = () => {
     board.addEventListener('click', (ev) => {
         cell = ev.target
         if (cell.className === 'cell') {
@@ -78,11 +106,11 @@ const clicked = () => {
                 cell.classList.add(currentClass) 
                 if (checkWin(currentClass)) {
                     won()
-                    return gameFinish === true
+                    return gameFinish = true
                 }
                 if (checkDraw()) {
                     draw()
-                    return gameFinish === true
+                    return gameFinish = true
                 }
                 switchSide()
             } else {
@@ -90,11 +118,11 @@ const clicked = () => {
                 cell.classList.add(currentClass)
                 if (checkWin(currentClass)) {
                     won()
-                    return gameFinish === true
+                    return gameFinish = true
                 }
                 if (checkDraw()) {
                     draw()
-                    return gameFinish === true
+                    return gameFinish = true
                 }
                 switchSide()
             }
@@ -113,6 +141,8 @@ const checkWin = (currentClass) => {
 const won = () => {
     message.textContent = `${currentClass === 'x' ? player1 : player2} wins!`
     currentClass === 'x' ? player1Score++ : player2Score++
+    localStorage.setItem('player1Score', player1Score)
+    localStorage.setItem('player2Score', player2Score)
     setTimeout(() => {
         audioWin.play()
         setTimeout(() => {
@@ -134,28 +164,12 @@ const checkDraw = () => {
 const draw = () => {
     message.textContent = `It's a draw!`
     drawScore++
+    localStorage.setItem('tieScore', drawScore)
     setTimeout(() => {
         audioDraw.play()
     }, 300)
     keepScore()
     resetBtn.style.display = 'flex'
-}
-
-const keepScore = () => {
-    const p1tag = document.querySelector('.player1').children[0]
-    const p2tag = document.querySelector('.player2').children[0]
-
-    p1tag.textContent = player1
-    p2tag.textContent = player2
-
-    const p1Score = document.querySelector('#p1Score')
-    const tieScore = document.querySelector('#tieScore')
-    const p2Score = document.querySelector('#p2Score')
-
-    p1Score.textContent = player1Score
-    tieScore.textContent = drawScore
-    p2Score.textContent = player2Score
-
 }
 
 const switchSide = () => {
@@ -182,7 +196,7 @@ const clearBoard = () => {
         audioWin.currentTime = 0
         audioDraw.pause()
         audioDraw.currentTime = 0
-    setupGame()
+        setupGame()
     })
 }
 
@@ -208,11 +222,11 @@ const clearLocal = () => {
     const clearLocalBtn = navBtns.children[0]
     console.log(clearLocalBtn)
     clearLocalBtn.addEventListener('click', () => {
-        player1 = 'Player 1'
-        player2 = 'Player 2'
-        player1Score = 0
-        player2Score = 0
-        drawScore = 0
+        localStorage.setItem('player1', 'Player 1')
+        localStorage.setItem('player2', 'Player 2')
+        localStorage.setItem('player1Score', 0)
+        localStorage.setItem('player2Score', 0)
+        localStorage.setItem('tieScore', 0)
         cellElements.forEach(cell => {
             cell.className = 'cell'
         })
@@ -254,25 +268,63 @@ const addAnimation = () => {
             currentArray.push(i)
         }
     }
-    console.log(currentArray)
     winCon.forEach(combination => {
         if (combination.every(index => currentArray.includes(index))) {
             winArray = combination
         }
     })
-    console.log(winArray)
     winArray.forEach(index => {
         cellElements[index].style.animation = 'blink 0.8s linear 3'
     })
 }
 
-const playGame = () => {
-    displayMessage()
-    clicked()
-    clearBoard()
-} 
+const changeTheme = (theme) => {
+    themeChoice.dataset.theme = theme
+    nav.dataset.theme = theme
+    mainContent.dataset.theme = theme
+    cellElements.forEach(cell => {
+        cell.dataset.theme = theme
+    })
+    scoreBoard.dataset.theme = theme
+    document.body.dataset.theme = theme
+    themeChoice.style.opacity = 0
+}
+
+const changeColour = () => {
+    const themeChange = document.querySelector('.palette')
+    const blueBtn = document.querySelector('.blueTheme')
+    const redBtn = document.querySelector('.redTheme')
+    const beigeBtn = document.querySelector('.beigeTheme')
+    const darkBtn = document.querySelector('.darkTheme')
+    themeChange.addEventListener('click', (ev) => {
+        if (themeChoice.style.opacity === '1') {
+            themeChoice.style.opacity = 0
+        } else {
+            themeChoice.style.opacity = 1
+        }
+    })
+    
+    blueBtn.addEventListener('click', () => {
+        changeTheme('blueTheme')
+        document.body.style.backgroundColor = '#FEF9EF'
+    })
+    redBtn.addEventListener('click', () => {
+        changeTheme('')
+        document.body.style.backgroundColor = 'white'
+    })
+    beigeBtn.addEventListener('click', () => {
+        changeTheme('beigeTheme')
+        document.body.style.backgroundColor = '#FFFBE9'
+    })
+    darkBtn.addEventListener('click', () => {
+        changeTheme('darkTheme')
+        document.body.style.backgroundColor = 'black'
+    })
+}
 
 setupGame()
+
+clearBoard()
 
 changeName()
 
@@ -280,10 +332,4 @@ clearLocal()
 
 toggleSound()
 
-
-// const userIconChange = () => {
-//     const userIcon = document.querySelector('.userChange')
-//     userIcon.addEventListener('mouseover', () => {
-//         userIcon.children[0].style
-//     })
-// }
+changeColour()
