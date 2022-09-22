@@ -12,9 +12,9 @@ body {
 
 .container {
     width: 99vw;
-    height: 100vh;
+    height: 99vh;
     display: grid;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto 1fr auto;
     margin: auto;
 }
 
@@ -390,6 +390,31 @@ nav .buttons:hover {
     padding: 1.2em;
 }
 
+.banner {
+    background-color: #e83b2b;
+    color: white;
+    padding: 1.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.banner h3 {
+    padding-right: 0.5em;
+}
+
+.banner .icons {
+    display: flex;
+    flex-direction: row;
+    padding-top: 1em;
+}
+
+.icons div {
+    padding: 10px;
+    width: 2em;
+}
+
 #overlay {
     display: none;
     position: fixed;
@@ -409,6 +434,17 @@ nav .buttons:hover {
     }
 }
 
-.winningCell {
-    animation: 'blink 0.8s linear 3';
+@keyframes slide {
+    0% {
+        opacity: 0;
+        top: 0px;
+    }
+    30% {
+        opacity: 0;
+        top: 18px;
+    }
+    100% {
+        opacity: 1;
+        top: 60px;
+    }
 }

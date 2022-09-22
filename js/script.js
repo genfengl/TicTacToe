@@ -297,10 +297,13 @@ const changeColour = () => {
     const beigeBtn = document.querySelector('.beigeTheme')
     const darkBtn = document.querySelector('.darkTheme')
     themeChange.addEventListener('click', (ev) => {
+        console.log('clicked')
         if (themeChoice.style.opacity === '1') {
             themeChoice.style.opacity = 0
+            themeChoice.style.animation = null
         } else {
             themeChoice.style.opacity = 1
+            themeChoice.style.animation = 'slide 0.3s linear 1'
         }
     })
     
