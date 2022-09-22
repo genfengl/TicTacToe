@@ -12,6 +12,7 @@ const themeChoice = document.querySelector('.themeChoice')
 const nav = document.querySelector('nav')
 const mainContent = document.querySelector('.main-content')
 const scoreBoard = document.querySelector('.scoreBoard')
+const banner = document.querySelector('.banner')
 
 let currentClass = 'x'
 const xClass = 'x'
@@ -150,7 +151,7 @@ const won = () => {
             audioWin.currentTime = 0
         }, 2000)
     }, 500)
-    addAnimation()
+    winAnimation()
     keepScore()
     resetBtn.style.display = 'flex'
 }
@@ -168,6 +169,7 @@ const draw = () => {
     setTimeout(() => {
         audioDraw.play()
     }, 300)
+    drawAnimation()
     keepScore()
     resetBtn.style.display = 'flex'
 }
@@ -262,7 +264,7 @@ const toggleSound = () => {
     })
 }
 
-const addAnimation = () => {
+const winAnimation = () => {
     for (i=0; i<cellElements.length; i++) {
         if (cellElements[i].classList.contains(currentClass)) {
             currentArray.push(i)
@@ -278,6 +280,12 @@ const addAnimation = () => {
     })
 }
 
+const drawAnimation = () => {
+    for (i=0; i<cellElements.length; i++) {
+        cellElements[i].style.animation = 'blink 0.5s linear 3'
+    }
+}
+
 const changeTheme = (theme) => {
     themeChoice.dataset.theme = theme
     nav.dataset.theme = theme
@@ -286,6 +294,7 @@ const changeTheme = (theme) => {
         cell.dataset.theme = theme
     })
     scoreBoard.dataset.theme = theme
+    banner.dataset.theme = theme
     document.body.dataset.theme = theme
     themeChoice.style.opacity = 0
 }
