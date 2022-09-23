@@ -8,12 +8,12 @@ const audioX = new Audio('./sounds/Tictactoe_X.mp3')
 const audioO = new Audio('./sounds/Tictactoe_O.mp3')
 const audioWin = new Audio('./sounds/Tictactoe_Win.mp3')
 const audioDraw = new Audio('./sounds/Tictactoe_Draw.mp3')
+const audioBtn = new Audio('./sounds/Tictactoe_buttonClick.mp3')
 const themeChoice = document.querySelector('.themeChoice')
 const nav = document.querySelector('nav')
 const mainContent = document.querySelector('.main-content')
 const scoreboard = document.querySelector('.scoreboard')
 const banner = document.querySelector('.banner')
-console.log(navBtns)
 
 let currentClass = 'x'
 const xClass = 'x'
@@ -147,29 +147,6 @@ const playGame = () => {
             }
         }
     })
-
-}
-
-const playGameVsAI = () => {
-    board.addEventListener('click', (ev) => {
-        cell = ev.target
-        if (cell.className === 'cell') {
-            if (currentClass === 'x') {
-                audioX.play()
-                cell.classList.add(currentClass)
-                if (checkWin(currentClass)) {
-                    won()
-                    return gameFinish = true
-                }
-                if (checkDraw()) {
-                    draw()
-                    return gameFinish = true
-                }
-                switchSide()
-                aiTurn()
-            }
-        }
-    })
 }
 
 const aiTurn = () => {
@@ -206,10 +183,10 @@ const won = () => {
     localStorage.setItem('player1Score', player1Score)
     localStorage.setItem('player2Score', player2Score)
     setTimeout(() => {
-        audioWin.play()
+        audioDraw.play()
         setTimeout(() => {
-            audioWin.pause()
-            audioWin.currentTime = 0
+            audioDraw.pause()
+            audioDraw.currentTime = 0
         }, 2000)
     }, 500)
     winAnimation()
@@ -255,8 +232,6 @@ const clearBoard = () => {
             winArray = []
             currentArray = []
         })
-        audioWin.pause()
-        audioWin.currentTime = 0
         audioDraw.pause()
         audioDraw.currentTime = 0
         setupGame()
@@ -283,6 +258,7 @@ const changeName = () => {
 
 const clearLocalBtn = navBtns.children[0]
 clearLocalBtn.addEventListener('click', () => {
+    audioBtn.play()
     clearLocal()
 })
 const clearLocal = () => {
@@ -311,8 +287,8 @@ const toggleSound = () => {
             soundMuted = true
             audioX.muted = true
             audioO.muted = true
-            audioWin.muted = true
             audioDraw.muted = true
+            audioBtn.muted = true
         } else if (soundMuted === true) {
             muteIcon.style.display = 'none'
             soundIcon.style.display = 'flex'
@@ -320,7 +296,7 @@ const toggleSound = () => {
             audioX.muted = false
             audioO.muted = false
             audioDraw.muted = false
-            audioWin.muted = false
+            audioBtn.muted = false
         }
     })
 }
@@ -352,6 +328,7 @@ const toggleAI = () => {
     const aiIcon = aiBtn.children[1]
     const userIcon = aiBtn.children[0]
     aiBtn.addEventListener('click', () => {
+        audioBtn.play()
         if (vsAI === false) {
             userIcon.style.display = 'none'
             aiIcon.style.display = 'flex'
@@ -367,8 +344,6 @@ const toggleAI = () => {
         }
     })
 }
-
-
 
 const changeTheme = (theme) => {
     themeChoice.dataset.theme = theme
@@ -390,7 +365,7 @@ const changeColour = () => {
     const beigeBtn = document.querySelector('.beigeTheme')
     const darkBtn = document.querySelector('.darkTheme')
     themeChange.addEventListener('click', (ev) => {
-        console.log('clicked')
+        audioBtn.play()
         if (themeChoice.style.opacity === '1') {
             themeChoice.style.opacity = 0
             themeChoice.style.animation = null
@@ -401,18 +376,22 @@ const changeColour = () => {
     })
 
     blueBtn.addEventListener('click', () => {
+        audioBtn.play()
         changeTheme('blueTheme')
         document.body.style.backgroundColor = '#FEF9EF'
     })
     redBtn.addEventListener('click', () => {
+        audioBtn.play()
         changeTheme('')
         document.body.style.backgroundColor = 'white'
     })
     beigeBtn.addEventListener('click', () => {
+        audioBtn.play()
         changeTheme('beigeTheme')
         document.body.style.backgroundColor = '#FFFBE9'
     })
     darkBtn.addEventListener('click', () => {
+        audioBtn.play()
         changeTheme('darkTheme')
         document.body.style.backgroundColor = 'black'
     })
