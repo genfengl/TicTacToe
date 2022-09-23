@@ -355,7 +355,7 @@ nav .buttons:hover {
     border-left: none;
 }
 
-.scoreBoard {
+.scoreboard {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     justify-content: center;
@@ -364,27 +364,27 @@ nav .buttons:hover {
     overflow: hidden;
 }
 
-.scoreBoard[data-theme='blueTheme'] .player1 {
+.scoreboard[data-theme='blueTheme'] .player1 {
     color:#FF865E
 }
 
-.scoreBoard[data-theme='beigeTheme'] .player1 {
+.scoreboard[data-theme='beigeTheme'] .player1 {
     color:#CEAB93
 }
 
-.scoreBoard[data-theme='darkTheme'] .player1 {
+.scoreboard[data-theme='darkTheme'] .player1 {
     color:white
 }
 
-.scoreBoard[data-theme='blueTheme'] .player2 {
+.scoreboard[data-theme='blueTheme'] .player2 {
     color:#FEE440
 }
 
-.scoreBoard[data-theme='beigeTheme'] .player2 {
+.scoreboard[data-theme='beigeTheme'] .player2 {
     color:#CEAB93
 }
 
-.scoreBoard[data-theme='darkTheme'] .player2 {
+.scoreboard[data-theme='darkTheme'] .player2 {
     color:white
 }
 
@@ -511,7 +511,7 @@ nav .buttons:hover {
         padding: 8px;
     }
 
-    .main-content .scoreBoard {
+    .main-content .scoreboard {
         font-size: 0.8em;
         padding: 0.8em;
     }

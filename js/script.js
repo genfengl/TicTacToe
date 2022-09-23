@@ -11,7 +11,7 @@ const audioDraw = new Audio('./sounds/Tictactoe_Draw.mp3')
 const themeChoice = document.querySelector('.themeChoice')
 const nav = document.querySelector('nav')
 const mainContent = document.querySelector('.main-content')
-const scoreBoard = document.querySelector('.scoreBoard')
+const scoreboard = document.querySelector('.scoreboard')
 const banner = document.querySelector('.banner')
 console.log(navBtns)
 
@@ -104,50 +104,50 @@ const playGame = () => {
     if (vsAI === true && currentClass === 'o') {
         aiTurn()
     }
-        board.addEventListener('click', (ev) => {
-            cell = ev.target
-            if (cell.className === 'cell') {
-                if (vsAI === false && currentClass === 'x') {
-                    audioX.play()
-                    cell.classList.add(currentClass) 
-                    if (checkWin(currentClass)) {
-                        won()
-                        return gameFinish = true
-                    }
-                    if (checkDraw()) {
-                        draw()
-                        return gameFinish = true
-                    }
-                    switchSide()
-                } else if (vsAI === false && currentClass === 'o') {
-                    audioO.play()
-                    cell.classList.add(currentClass)
-                    if (checkWin(currentClass)) {
-                        won()
-                        return gameFinish = true
-                    }
-                    if (checkDraw()) {
-                        draw()
-                        return gameFinish = true
-                    }
-                    switchSide()
-                } else if (vsAI === true && currentClass === 'x') {
-                    audioX.play()
-                    cell.classList.add(currentClass)
-                    if (checkWin(currentClass)) {
-                        won()
-                        return gameFinish = true
-                    }
-                    if (checkDraw()) {
-                        draw()
-                        return gameFinish = true
-                    }
-                    switchSide()
-                    aiTurn()
-                } 
+    board.addEventListener('click', (ev) => {
+        cell = ev.target
+        if (cell.className === 'cell') {
+            if (vsAI === false && currentClass === 'x') {
+                audioX.play()
+                cell.classList.add(currentClass)
+                if (checkWin(currentClass)) {
+                    won()
+                    return gameFinish = true
+                }
+                if (checkDraw()) {
+                    draw()
+                    return gameFinish = true
+                }
+                switchSide()
+            } else if (vsAI === false && currentClass === 'o') {
+                audioO.play()
+                cell.classList.add(currentClass)
+                if (checkWin(currentClass)) {
+                    won()
+                    return gameFinish = true
+                }
+                if (checkDraw()) {
+                    draw()
+                    return gameFinish = true
+                }
+                switchSide()
+            } else if (vsAI === true && currentClass === 'x') {
+                audioX.play()
+                cell.classList.add(currentClass)
+                if (checkWin(currentClass)) {
+                    won()
+                    return gameFinish = true
+                }
+                if (checkDraw()) {
+                    draw()
+                    return gameFinish = true
+                }
+                switchSide()
+                aiTurn()
             }
-        })
-    
+        }
+    })
+
 }
 
 const playGameVsAI = () => {
@@ -174,12 +174,12 @@ const playGameVsAI = () => {
 
 const aiTurn = () => {
     let unoccupiedCells = []
-    for (i=0; i<cellElements.length; i++) {
+    for (i = 0; i < cellElements.length; i++) {
         if (cellElements[i].className === 'cell') {
             unoccupiedCells.push(i)
         }
     }
-    let randomIndex = unoccupiedCells[Math.floor(Math.random()*unoccupiedCells.length)]
+    let randomIndex = unoccupiedCells[Math.floor(Math.random() * unoccupiedCells.length)]
     cellElements[randomIndex].classList.add(currentClass)
     if (checkWin(currentClass)) {
         won()
@@ -283,9 +283,9 @@ const changeName = () => {
 
 const clearLocalBtn = navBtns.children[0]
 clearLocalBtn.addEventListener('click', () => {
-        clearLocal()
+    clearLocal()
 })
-const clearLocal = () => {    
+const clearLocal = () => {
     localStorage.setItem('player1', 'PLAYER 1')
     vsAI === true ? localStorage.setItem('player2', 'COMPUTER') : localStorage.setItem('player2', 'PLAYER 2')
     localStorage.setItem('player1Score', 0)
@@ -326,7 +326,7 @@ const toggleSound = () => {
 }
 
 const winAnimation = () => {
-    for (i=0; i<cellElements.length; i++) {
+    for (i = 0; i < cellElements.length; i++) {
         if (cellElements[i].classList.contains(currentClass)) {
             currentArray.push(i)
         }
@@ -337,12 +337,12 @@ const winAnimation = () => {
         }
     })
     winArray.forEach(index => {
-        cellElements[index].style.animation = 'blink 0.8s linear 3'
+        cellElements[index].style.animation = 'blink 0.5s linear 3'
     })
 }
 
 const drawAnimation = () => {
-    for (i=0; i<cellElements.length; i++) {
+    for (i = 0; i < cellElements.length; i++) {
         cellElements[i].style.animation = 'blink 0.5s linear 3'
     }
 }
@@ -377,7 +377,7 @@ const changeTheme = (theme) => {
     cellElements.forEach(cell => {
         cell.dataset.theme = theme
     })
-    scoreBoard.dataset.theme = theme
+    scoreboard.dataset.theme = theme
     banner.dataset.theme = theme
     document.body.dataset.theme = theme
     themeChoice.style.opacity = 0
@@ -399,7 +399,7 @@ const changeColour = () => {
             themeChoice.style.animation = 'slide 0.3s linear 1'
         }
     })
-    
+
     blueBtn.addEventListener('click', () => {
         changeTheme('blueTheme')
         document.body.style.backgroundColor = '#FEF9EF'
