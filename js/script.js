@@ -13,6 +13,7 @@ const nav = document.querySelector('nav')
 const mainContent = document.querySelector('.main-content')
 const scoreBoard = document.querySelector('.scoreBoard')
 const banner = document.querySelector('.banner')
+console.log(navBtns)
 
 let currentClass = 'x'
 const xClass = 'x'
@@ -22,12 +23,13 @@ let currentArray = []
 let winArray = null
 let currentTheme = 'red'
 let whoGoesFirst = null
+let vsAI = false
 
 if (localStorage.getItem('player1') === null) {
-    localStorage.setItem('player1', 'Player 1')
+    localStorage.setItem('player1', 'PLAYER 1')
 }
 if (localStorage.getItem('player2') === null) {
-    localStorage.setItem('player2', 'Player 2')
+    localStorage.setItem('player2', 'PLAYER 2')
 }
 let player1 = localStorage.getItem('player1')
 let player2 = localStorage.getItem('player2')
@@ -99,23 +101,61 @@ const keepScore = () => {
 }
 
 const playGame = () => {
+    if (vsAI === true && currentClass === 'o') {
+        aiTurn()
+    }
+        board.addEventListener('click', (ev) => {
+            cell = ev.target
+            if (cell.className === 'cell') {
+                if (vsAI === false && currentClass === 'x') {
+                    audioX.play()
+                    cell.classList.add(currentClass) 
+                    if (checkWin(currentClass)) {
+                        won()
+                        return gameFinish = true
+                    }
+                    if (checkDraw()) {
+                        draw()
+                        return gameFinish = true
+                    }
+                    switchSide()
+                } else if (vsAI === false && currentClass === 'o') {
+                    audioO.play()
+                    cell.classList.add(currentClass)
+                    if (checkWin(currentClass)) {
+                        won()
+                        return gameFinish = true
+                    }
+                    if (checkDraw()) {
+                        draw()
+                        return gameFinish = true
+                    }
+                    switchSide()
+                } else if (vsAI === true && currentClass === 'x') {
+                    audioX.play()
+                    cell.classList.add(currentClass)
+                    if (checkWin(currentClass)) {
+                        won()
+                        return gameFinish = true
+                    }
+                    if (checkDraw()) {
+                        draw()
+                        return gameFinish = true
+                    }
+                    switchSide()
+                    aiTurn()
+                } 
+            }
+        })
+    
+}
+
+const playGameVsAI = () => {
     board.addEventListener('click', (ev) => {
         cell = ev.target
         if (cell.className === 'cell') {
             if (currentClass === 'x') {
                 audioX.play()
-                cell.classList.add(currentClass) 
-                if (checkWin(currentClass)) {
-                    won()
-                    return gameFinish = true
-                }
-                if (checkDraw()) {
-                    draw()
-                    return gameFinish = true
-                }
-                switchSide()
-            } else {
-                audioO.play()
                 cell.classList.add(currentClass)
                 if (checkWin(currentClass)) {
                     won()
@@ -126,9 +166,30 @@ const playGame = () => {
                     return gameFinish = true
                 }
                 switchSide()
+                aiTurn()
             }
         }
     })
+}
+
+const aiTurn = () => {
+    let unoccupiedCells = []
+    for (i=0; i<cellElements.length; i++) {
+        if (cellElements[i].className === 'cell') {
+            unoccupiedCells.push(i)
+        }
+    }
+    let randomIndex = unoccupiedCells[Math.floor(Math.random()*unoccupiedCells.length)]
+    cellElements[randomIndex].classList.add(currentClass)
+    if (checkWin(currentClass)) {
+        won()
+        return gameFinish = true
+    }
+    if (checkDraw()) {
+        draw()
+        return gameFinish = true
+    }
+    switchSide()
 }
 
 const checkWin = (currentClass) => {
@@ -220,21 +281,21 @@ const changeName = () => {
     })
 }
 
-const clearLocal = () => {
-    const clearLocalBtn = navBtns.children[0]
-    console.log(clearLocalBtn)
-    clearLocalBtn.addEventListener('click', () => {
-        localStorage.setItem('player1', 'Player 1')
-        localStorage.setItem('player2', 'Player 2')
-        localStorage.setItem('player1Score', 0)
-        localStorage.setItem('player2Score', 0)
-        localStorage.setItem('tieScore', 0)
-        cellElements.forEach(cell => {
-            cell.className = 'cell'
-        })
-        gameFinish = true
-        setupGame()
+const clearLocalBtn = navBtns.children[0]
+clearLocalBtn.addEventListener('click', () => {
+        clearLocal()
+})
+const clearLocal = () => {    
+    localStorage.setItem('player1', 'PLAYER 1')
+    vsAI === true ? localStorage.setItem('player2', 'COMPUTER') : localStorage.setItem('player2', 'PLAYER 2')
+    localStorage.setItem('player1Score', 0)
+    localStorage.setItem('player2Score', 0)
+    localStorage.setItem('tieScore', 0)
+    cellElements.forEach(cell => {
+        cell.className = 'cell'
     })
+    gameFinish = true
+    setupGame()
 }
 
 const toggleSound = () => {
@@ -285,6 +346,29 @@ const drawAnimation = () => {
         cellElements[i].style.animation = 'blink 0.5s linear 3'
     }
 }
+
+const toggleAI = () => {
+    const aiBtn = navBtns.children[1]
+    const aiIcon = aiBtn.children[1]
+    const userIcon = aiBtn.children[0]
+    aiBtn.addEventListener('click', () => {
+        if (vsAI === false) {
+            userIcon.style.display = 'none'
+            aiIcon.style.display = 'flex'
+            vsAI = true
+            console.log('AI on')
+            clearLocal()
+        } else if (vsAI === true) {
+            aiIcon.style.display = 'none'
+            userIcon.style.display = 'flex'
+            vsAI = false
+            console.log('AI off')
+            clearLocal()
+        }
+    })
+}
+
+
 
 const changeTheme = (theme) => {
     themeChoice.dataset.theme = theme
@@ -345,3 +429,5 @@ clearLocal()
 toggleSound()
 
 changeColour()
+
+toggleAI()

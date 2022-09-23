@@ -3,6 +3,11 @@
     --symbol-size: calc(var(--cell-size) * 0.9);
 }
 
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     box-sizing: border-box;
     font-size: 16px;
@@ -11,10 +16,10 @@ body {
 }
 
 .container {
-    width: 99vw;
-    height: 99vh;
+    width: 100vw;
+    height: 100vh;
     display: grid;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto 1fr auto auto;
     margin: auto;
 }
 
@@ -142,10 +147,15 @@ nav .buttons:hover {
     display: none;
 }
 
+.buttons .aiToggle .fa-display {
+    display: none;
+}
+
 .main-content {
     grid-row: 2 / 3;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     border-top: 2px solid;
     border-color: #e83b2b;
     color: #e83b2b;
@@ -465,19 +475,14 @@ nav .buttons:hover {
     }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 860px) {
     :root {
-        --cell-size: 6em;
+        --cell-size: 5em;
         --symbol-size: calc(var(--cell-size) * 0.9);
-    }
-    
-    .container {
-        width: 99vw;
-        height: 99vw;
     }
 
     .container nav {
-        font-size: 0.62em;
+        font-size: 0.6em;
         align-items: center;
         justify-content: center;
         padding: 0.5em 0 0.5em 0;
@@ -498,20 +503,29 @@ nav .buttons:hover {
     }
     
     .main-content .message {
-        font-size: 0.9em;
-        padding: 1em;
+        font-size: 0.8em;
+        padding: 0.8em;
     }
 
     .main-content .board {
-        padding: 1em;
+        padding: 8px;
     }
 
     .main-content .scoreBoard {
-        font-size: 0.9em;
+        font-size: 0.8em;
+        padding: 0.8em;
     }
 
     .banner {
         font-size: 0.8em;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    footer .banner .icons {
+        padding-bottom: 0;
+        padding-top: 0;
     }
 
     @keyframes slide {
@@ -527,5 +541,15 @@ nav .buttons:hover {
             opacity: 1;
             top: 30px;
         }
+    }
+}
+
+@media (max-width: 300px) {
+    .container nav {
+        font-size: 0.48em;
+    }
+
+    .banner {
+        font-size: 0.5em;
     }
 }
