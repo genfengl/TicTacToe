@@ -402,8 +402,6 @@ clearBoard()
 
 changeName()
 
-clearLocal()
-
 toggleSound()
 
 changeColour()
