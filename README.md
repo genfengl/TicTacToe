@@ -1,5 +1,7 @@
 # TIC TAC TOE
 
+Link to the game: [Tic Tac Toe](https://genfengl.github.io/TicTacToe/)
+
 ## Getting Started
 - Started with wireframing
 - Afted deciding on a basic framework of the layout, started coding the basic html and css
