@@ -13,6 +13,9 @@
 - Started coding from the top section of the page - NAV
 - Used flexbox for layout
 
+### themeChange
+- Used css animation to create a sliding action when clicking on the palette icon to open the div of theme selection
+
 ## main-content
 - Used flexbox for layout
 
