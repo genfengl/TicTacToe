@@ -558,6 +558,10 @@ nav .buttons:hover {
         font-size: 0.48em;
     }
 
+    .main-content .scoreBoard {
+        font-size: 0.5em;
+    }
+
     .banner {
         font-size: 0.5em;
     }

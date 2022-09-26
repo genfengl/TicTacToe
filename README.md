@@ -5,7 +5,7 @@ Link to the game: [Tic Tac Toe](https://genfengl.github.io/TicTacToe/)
 ## Getting Started
 - Started with wireframing
 - Afted deciding on a basic framework of the layout, started coding the basic html and css
-![wireframe](/assets/images/Tictactoe_Wireframe.jpg)
+![wireframe](../images/Tictactoe_Wireframe.jpg)
 ## .container
 - A container for all elements
 - Used grid for layout
